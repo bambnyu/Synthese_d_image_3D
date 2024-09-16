@@ -56,30 +56,30 @@ float get_intersection_distance(const Rayon& ray, float t) {
 
 
 
-//// calcul de l'intersection entre un rayon et une sphère
-//std::optional<float>  intersect_sphere(const Rayon& ray, const Sphere& sphere) {
-//    Vec3 oc = ray.origin - sphere.center; // vecteur entre l'origine du rayon et le centre de la sphère
-//
-//    float a = length_squarred(ray.direction); // norme du vecteur direction du rayon
-//    float b = 2.0f * dot(oc, ray.direction); // produit scalaire entre le vecteur oc et le vecteur direction du rayon
-//    float c = length_squarred(oc) - sphere.radius * sphere.radius; // norme du vecteur oc - rayon de la sphère
-//
-//    float delta = b * b - 4.0f * a * c;
-//
-//    if (delta >= 0.0f) {
-//        // calcul des deux solutions de l'équation du second degré
-//        float t1 = (-b - std::sqrt(delta)) / (2.0f * a);
-//        float t2 = (-b + std::sqrt(delta)) / (2.0f * a);
-//
-//        if (t1 >= 0.0f) {
-//            return t1;
-//        }
-//        else if (t2 >= 0.0f) {
-//            return t2;
-//        }
-//    }
-//    return std::nullopt;
-//}
+// calcul de l'intersection entre un rayon et une sphère
+std::optional<float>  intersect_sphere(const Rayon& ray, const Sphere& sphere) {
+    Vec3 oc = ray.origin - sphere.center; // vecteur entre l'origine du rayon et le centre de la sphère
+
+    float a = length_squarred(ray.direction); // norme du vecteur direction du rayon
+    float b = 2.0f * dot(oc, ray.direction); // produit scalaire entre le vecteur oc et le vecteur direction du rayon
+    float c = length_squarred(oc) - sphere.radius * sphere.radius; // norme du vecteur oc - rayon de la sphère
+
+    float delta = b * b - 4.0f * a * c;
+
+    if (delta >= 0.0f) {
+        // calcul des deux solutions de l'équation du second degré
+        float t1 = (-b - std::sqrt(delta)) / (2.0f * a);
+        float t2 = (-b + std::sqrt(delta)) / (2.0f * a);
+
+        if (t1 >= 0.0f) {
+            return t1;
+        }
+        else if (t2 >= 0.0f) {
+            return t2;
+        }
+    }
+   return std::nullopt;
+}
 
 
 
@@ -104,7 +104,38 @@ int main() {
     float focal = 10000.0f;
 
     // la faire la boucle de remplissage et de test pour l'intersection cercle
+    for (int py = 0; py < h; ++py) {
+        float y = static_cast<float>(py);
 
+        for (int px = 0; px < w; ++px) {
+            float x = static_cast<float>(px);
+
+            // Pixel as a 3D point
+            Vec3 pixel = { x * 2.0f - w, y * 2.0f - h, 0.0f };
+            Vec3 focal_point = { 0.0f, 0.0f, -focal };
+            Vec3 direction = pixel - focal_point;
+
+            Rayon ray = { pixel, direction };
+
+            auto it = intersect_sphere(ray, sphere);
+
+            if (it.has_value()) {
+                float distance = get_intersection_distance(ray, it.value());
+                unsigned char v = static_cast<unsigned char>(std::min(distance * 1.0f, 255.0f));
+
+                // Set pixel color (grayscale)
+                img[(py * w + px) * 3 + 0] = v; // Red
+                img[(py * w + px) * 3 + 1] = v; // Green
+                img[(py * w + px) * 3 + 2] = v; // Blue
+            }
+            else {
+                // Set background color (e.g., dark blue-ish)
+                img[(py * w + px) * 3 + 0] = 72;
+                img[(py * w + px) * 3 + 1] = 61;
+                img[(py * w + px) * 3 + 2] = 139;
+            }
+        }
+    }
 
 
     save_image(img, w, h, "result.ppm"); // j'enregistre l'image
