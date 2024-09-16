@@ -1,0 +1,3 @@
+﻿  Ray_tracing_test.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\optional(11): warning STL4038: The contents of <optional> are available only with C++17 or later.
+  Ray_tracing_test.vcxproj -> C:\Users\arozen\Desktop\synthese d'image 3D\Synthese_d_image_3D\Ray-tracing_saison2_3\Ray_tracing_test\x64\Debug\Ray_tracing_test.exe

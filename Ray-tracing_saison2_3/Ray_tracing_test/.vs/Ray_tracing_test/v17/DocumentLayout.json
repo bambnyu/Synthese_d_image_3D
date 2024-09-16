@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\arozen\\Desktop\\synthese d\u0027image 3D\\Synthese_d_image_3D\\Ray-tracing_saison2_3\\Ray_tracing_test\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9A78DE5A-8BA7-46C9-8A7F-0EB379698D77}|Ray_tracing_test\\Ray_tracing_test.vcxproj|C:\\Users\\arozen\\Desktop\\synthese d\u0027image 3D\\Synthese_d_image_3D\\Ray-tracing_saison2_3\\Ray_tracing_test\\Ray_tracing_test\\Ray_tracing_test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{9A78DE5A-8BA7-46C9-8A7F-0EB379698D77}|Ray_tracing_test\\Ray_tracing_test.vcxproj|solutionrelative:Ray_tracing_test\\Ray_tracing_test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Ray_tracing_test.cpp",
+              "DocumentMoniker": "C:\\Users\\arozen\\Desktop\\synthese d\u0027image 3D\\Synthese_d_image_3D\\Ray-tracing_saison2_3\\Ray_tracing_test\\Ray_tracing_test\\Ray_tracing_test.cpp",
+              "RelativeDocumentMoniker": "Ray_tracing_test\\Ray_tracing_test.cpp",
+              "ToolTip": "C:\\Users\\arozen\\Desktop\\synthese d\u0027image 3D\\Synthese_d_image_3D\\Ray-tracing_saison2_3\\Ray_tracing_test\\Ray_tracing_test\\Ray_tracing_test.cpp",
+              "RelativeToolTip": "Ray_tracing_test\\Ray_tracing_test.cpp",
+              "ViewState": "AQIAADYAAAAAAAAAAAAAAEcAAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-13T07:24:27.236Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
