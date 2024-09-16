@@ -99,11 +99,16 @@ int main() {
 
     std::vector<unsigned char> img(w * h * 3, 0); // initialisation de l'image *3 pour les 3 couleurs
 
-    float radius = 180.0f;
-    Sphere sphere = { radius, {0.0f, 0.0f, 200.0f} };
+    // Définir deux sphères
+    float radius1 = 180.0f;
+    Sphere sphere1 = { radius1, {0.0f, 0.0f, 200.0f} };
+
+    float radius2 = 150.0f;
+    Sphere sphere2 = { radius2, {200.0f, 100.0f, 200.0f} };
+
     float focal = 10000.0f;
 
-    // la faire la boucle de remplissage et de test pour l'intersection cercle
+    // Boucle de remplissage et de test pour l'intersection avec les deux sphères
     for (int py = 0; py < h; ++py) {
         float y = static_cast<float>(py);
 
@@ -111,25 +116,38 @@ int main() {
             float x = static_cast<float>(px);
 
             // Pixel as a 3D point
-            Vec3 pixel = { x * 2.0f - w, y * 2.0f - h, 0.0f };
+            Vec3 pixel = {x * 2.0f - w, y * 2.0f - h, 0.0f };
+
             Vec3 focal_point = { 0.0f, 0.0f, -focal };
             Vec3 direction = pixel - focal_point;
 
             Rayon ray = { pixel, direction };
 
-            auto it = intersect_sphere(ray, sphere);
+            // Tester les deux sphères
+            auto it1 = intersect_sphere(ray, sphere1);
+            auto it2 = intersect_sphere(ray, sphere2);
 
-            if (it.has_value()) {
-                float distance = get_intersection_distance(ray, it.value());
+            // je teste si j'ai contact avec ma premiere sphere 
+            if (it1.has_value() && (!it2.has_value() || it1.value() < it2.value())) { // et je verifie si il y a intersection entre les deux
+                float distance = get_intersection_distance(ray, it1.value());
                 unsigned char v = static_cast<unsigned char>(std::min(distance * 1.0f, 255.0f));
 
-                // Set pixel color (grayscale)
-                img[(py * w + px) * 3 + 0] = v; // Red
-                img[(py * w + px) * 3 + 1] = v; // Green
-                img[(py * w + px) * 3 + 2] = v; // Blue
+                // colore la premiere sphere
+                img[(py * w + px) * 3 + 0] = v; // R
+                img[(py * w + px) * 3 + 1] = v; // G
+                img[(py * w + px) * 3 + 2] = v; // B
+            }
+            else if (it2.has_value()) { //je teste si j'ai contact avec ma deuxieme sphere
+                float distance = get_intersection_distance(ray, it2.value());
+                unsigned char v = static_cast<unsigned char>(std::min(distance * 1.0f, 255.0f));
+
+                // colore la deuxieme sphere
+                img[(py * w + px) * 3 + 0] = v; // R
+                img[(py * w + px) * 3 + 1] = v; // G
+                img[(py * w + px) * 3 + 2] = v; // B
             }
             else {
-                // Set background color (e.g., dark blue-ish)
+                // Couleur de fond
                 img[(py * w + px) * 3 + 0] = 72;
                 img[(py * w + px) * 3 + 1] = 61;
                 img[(py * w + px) * 3 + 2] = 139;
@@ -137,10 +155,8 @@ int main() {
         }
     }
 
-
     save_image(img, w, h, "result.ppm"); // j'enregistre l'image
 
     std::cout << "Image enregistré comme result.ppm" << std::endl;
     return 0;
 }
-
